@@ -6,7 +6,7 @@
 BOT_NAME = "🦅 Aquila AI Trader Pro"
 
 # 🔑 Telegram
-BOT_TOKEN = "PUT_YOUR_TELEGRAM_BOT_TOKEN_HERE"
+BOT_TOKEN = "8570409684:AAEQBhKv0zMZaEXWcoCUGiJsKRspE5JuleME"
 CHAT_ID = 818760257  # غيره لو محتاج
 
 # 🌍 Language
