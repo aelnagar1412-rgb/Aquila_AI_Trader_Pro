@@ -20,7 +20,7 @@ def dashboard():
     settings = load_settings()
     return render_template(
         "dashboard.html",
-        enabled=settings["enabled"],
+        enabled = settings.get("enabled", False)
         pairs=",".join(settings["pairs"])
     )
 
