@@ -1,20 +1,17 @@
-# ===== BOT CONFIG =====
+# =====================
+# Telegram Settings
+# =====================
 
 BOT_TOKEN = "8570409684:AAEQBhKv0zMZaEXWcoCUGiJsKRspE5JuleM"
-BOT_NAME = "Aquila AI"
+CHAT_ID = "818760257"
 
-# ===== ENGINE SETTINGS =====
+# =====================
+# Engine Settings
+# =====================
+
+TIMEFRAME = "1m"
+PAIRS = ["EURUSD", "EURJPY", "EURGBP", "AUDCAD", "USDJPY"]
 CHECK_INTERVAL_SECONDS = 60
-ENABLE_NO_SIGNAL_ALERT = False
-
-# ===== TRADING SETTINGS =====
-DEFAULT_TIMEFRAME = "1m"
-PAIRS = [
-    "EURUSD",
-    "EURJPY",
-    "EURGBP",
-    "AUDCAD",
-    "USDJPY"
-]
 
 LANG = "ar"
+ENABLE_NO_SIGNAL_ALERT = True
