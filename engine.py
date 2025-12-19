@@ -1,25 +1,15 @@
 import time
-from strategies import ai_analysis
-from utils import send_signal
-import json
-
-SETTINGS_FILE = "settings.json"
-
-def load_settings():
-    with open(SETTINGS_FILE) as f:
-        return json.load(f)
+from utils import load_settings
 
 def run_engine():
-    print("🚀 Engine Started")
+    print("🚀 Aquila Engine Started")
 
     while True:
-        settings = load_settings()
-        tf = settings["timeframe"]
+        s = load_settings()
 
-        for pair in settings["pairs"]:
-            signal = ai_analysis(pair, tf)
-            if signal:
-                send_signal(signal)
-                time.sleep(2)
+        if not s["enabled"]:
+            time.sleep(3)
+            continue
 
-        time.sleep(60)
+        print(f"Running {s['strategy']} on {s['pairs']} TF {s['timeframe']}")
+        time.sleep(10)
