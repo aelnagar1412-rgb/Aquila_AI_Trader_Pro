@@ -1,14 +1,18 @@
-# =====================
-# Bot Basic Settings
-# =====================
+# ===============================
+# Aquila AI Trader Pro - Config
+# ===============================
 
-BOT_NAME = "Aquila AI"
+# --- Bot Info ---
+BOT_NAME = "Aquila AI Trader Pro"
 BOT_TOKEN = "8570409684:AAEQBhKv0zMZaEXWcoCUGiJsKRspE5JuleM"
 
-# =====================
-# Trading Settings
-# =====================
+# --- Language ---
+LANG = "ar"   # ar / en
 
+# --- Engine Settings ---
+CHECK_INTERVAL_SECONDS = 60   # scan every 60 seconds
+
+# --- Trading Settings ---
 DEFAULT_TIMEFRAME = "1m"
 
 PAIRS = [
@@ -19,16 +23,16 @@ PAIRS = [
     "USDJPY"
 ]
 
-# =====================
-# Engine Settings
-CHECK_INTERVAL_SECONDS = 60
-# =====================
+# --- Signal Filters ---
+MIN_SIGNAL_STRENGTH = 50
+MIN_AI_CONFIDENCE = 0.75
 
-SCAN_INTERVAL = 60  # seconds
-MAX_SIGNALS_PER_SCAN = 3
+# --- Risk / Limits ---
+MAX_SIGNALS_PER_SCAN = 5
 
-# =====================
-# Dashboard
-# =====================
-
+# --- Dashboard ---
+DASHBOARD_HOST = "0.0.0.0"
 DASHBOARD_PORT = 5000
+
+# --- Logging ---
+LOG_LEVEL = "INFO"
