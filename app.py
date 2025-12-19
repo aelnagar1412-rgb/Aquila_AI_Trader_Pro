@@ -18,10 +18,13 @@ def save_settings(data):
 @app.route("/")
 def dashboard():
     settings = load_settings()
+
     return render_template(
         "dashboard.html",
-        enabled = settings.get("enabled", False)
-        pairs=",".join(settings["pairs"])
+        enabled=settings.get("enabled", False),
+        pairs=settings.get("pairs", []),
+        timeframe=settings.get("timeframe", "1m"),
+        strategy=settings.get("strategy", "RSI_EMA")
     )
 
 
