@@ -1,13 +1,4 @@
 {
-  "enabled": true,
-  "timeframes": ["1m"],
-  "pairs": [
-    "EURUSD",
-    "EURJPY",
-    "EURGBP",
-    "AUDCAD",
-    "USDJPY"
-  ],
-  "min_strength": 50,
-  "scan_interval": 60
+  "timeframe": "1m",
+  "pairs": ["EURUSD", "EURJPY", "EURGBP", "AUDCAD", "USDJPY"]
 }
