@@ -1,2 +1,2 @@
 def send_signal(signal):
-    print("📢 Signal:", signal)
+    print("📢 SIGNAL:", signal)
