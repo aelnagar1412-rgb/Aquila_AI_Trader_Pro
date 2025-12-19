@@ -1,16 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Aquila AI Dashboard</title>
-</head>
-<body>
-    <h2>🧠 Aquila AI Control Panel</h2>
+<h2>Aquila Dashboard</h2>
 
-    <form method="POST">
-        <label>Pairs (comma separated)</label><br>
-        <input name="pairs" value="{{ ','.join(settings.pairs) }}" style="width:300px">
-        <br><br>
-        <button type="submit">Save</button>
-    </form>
-</body>
-</html>
+<form method="post">
+
+  <label>
+    <input type="checkbox" name="enabled" {% if enabled %}checked{% endif %}>
+    Bot Enabled
+  </label>
+
+  <br><br>
+
+  <label>Pairs</label><br>
+  <input name="pairs" value="{{ pairs | join(',') }}" style="width:300px">
+
+  <br><br>
+
+  <label>Timeframe</label><br>
+  <select name="timeframe">
+    <option value="1m" {% if timeframe=="1m" %}selected{% endif %}>1m</option>
+    <option value="5m" {% if timeframe=="5m" %}selected{% endif %}>5m</option>
+  </select>
+
+  <br><br>
+
+  <label>Strategy</label><br>
+  <select name="strategy">
+    <option value="RSI_EMA" {% if strategy=="RSI_EMA" %}selected{% endif %}>
+      RSI + EMA
+    </option>
+  </select>
+
+  <br><br>
+
+  <button type="submit">Save</button>
+</form>
