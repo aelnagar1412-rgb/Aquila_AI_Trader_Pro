@@ -1,48 +1,52 @@
-# -*- coding: utf-8 -*-
+import time
+import json
+import asyncio
 
-import time, random, asyncio
-import state
-from config import PAIRS, DEFAULT_TIMEFRAMES, PAIR_TIMEFRAMES
+from analysis import ai_analysis
+from telegram_bot import send_signal
 
-def ai_analysis(pair, tf):
-    if random.randint(1, 15) == 7:
-        return {
-            "pair": pair,
-            "tf": tf,
-            "dir": random.choice(["BUY", "SELL"]),
-            "strength": random.randint(55, 90),
-            "conf": random.randint(70, 95)
-        }
+SETTINGS_FILE = "settings.json"
 
-async def send_signal(sig):
-    print(f"📢 SIGNAL {sig}")
+
+def load_settings():
+    with open(SETTINGS_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
 
 def run_engine():
-    print("🚀 Engine Started")
+    print("🚀 Aquila AI Trader Pro Engine Started")
 
     while True:
-        if not state.BOT_RUNNING:
-            time.sleep(5)
-            continue
+        try:
+            settings = load_settings()
 
-        count = 0
-        for pair in PAIRS:
-            if state.ACTIVE_PAIRS and pair not in state.ACTIVE_PAIRS:
+            if not settings.get("enabled", False):
+                time.sleep(5)
                 continue
 
-            tfs = PAIR_TIMEFRAMES.get(pair, DEFAULT_TIMEFRAMES)
-            if state.ACTIVE_TIMEFRAME:
-                tfs = [state.ACTIVE_TIMEFRAME]
+            pairs = settings.get("pairs", [])
+            timeframes = settings.get("timeframes", [])
+            min_strength = settings.get("min_strength", 50)
+            scan_interval = settings.get("scan_interval", 60)
 
-            for tf in tfs:
-                sig = ai_analysis(pair, tf)
-                if sig:
-                    asyncio.run(send_signal(sig))
-                    count += 1
-                    time.sleep(2)
+            signals_count = 0
 
-        print(f"✅ Scan finished | Signals: {count}")
-        time.sleep(300)
+            for pair in pairs:
+                for tf in timeframes:
+                    signal = ai_analysis(pair, tf)
+
+                    if signal and signal.get("strength", 0) >= min_strength:
+                        asyncio.run(send_signal(signal))
+                        signals_count += 1
+                        time.sleep(2)
+
+            print(f"✅ Scan finished | Signals found: {signals_count}")
+            time.sleep(scan_interval)
+
+        except Exception as e:
+            print(f"❌ Engine error: {e}")
+            time.sleep(5)
+
 
 if __name__ == "__main__":
     run_engine()
