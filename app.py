@@ -1,45 +1,50 @@
-# -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, redirect
-import state, os, signal
+from flask import Flask, render_template, request, redirect, url_for
+import json
 
 app = Flask(__name__)
+SETTINGS_FILE = "settings.json"
+
+
+def load_settings():
+    with open(SETTINGS_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_settings(data):
+    with open(SETTINGS_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
 
 @app.route("/")
 def dashboard():
+    settings = load_settings()
     return render_template(
         "dashboard.html",
-        running=state.BOT_RUNNING,
-        tf=state.ACTIVE_TIMEFRAME,
-        pairs=state.ACTIVE_PAIRS
+        enabled=settings["enabled"],
+        pairs=",".join(settings["pairs"])
     )
 
-@app.route("/start")
-def start():
-    state.BOT_RUNNING = True
-    state.persist()
-    return redirect("/")
 
-@app.route("/stop")
-def stop():
-    state.BOT_RUNNING = False
-    state.persist()
-    return redirect("/")
+@app.route("/update_pairs", methods=["POST"])
+def update_pairs():
+    settings = load_settings()
 
-@app.route("/restart")
-def restart():
-    os.kill(os.getpid(), signal.SIGTERM)
+    pairs_input = request.form.get("pairs", "")
+    pairs = [p.strip().upper() for p in pairs_input.split(",") if p.strip()]
 
-@app.route("/set_tf", methods=["POST"])
-def set_tf():
-    state.ACTIVE_TIMEFRAME = request.form.get("tf") or None
-    state.persist()
-    return redirect("/")
+    settings["pairs"] = pairs
+    save_settings(settings)
 
-@app.route("/set_pairs", methods=["POST"])
-def set_pairs():
-    state.ACTIVE_PAIRS = request.form.getlist("pairs")
-    state.persist()
-    return redirect("/")
+    return redirect(url_for("dashboard"))
+
+
+@app.route("/toggle")
+def toggle_bot():
+    settings = load_settings()
+    settings["enabled"] = not settings["enabled"]
+    save_settings(settings)
+    return redirect(url_for("dashboard"))
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
