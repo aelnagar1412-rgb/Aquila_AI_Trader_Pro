@@ -4,26 +4,13 @@
     <title>Aquila AI Dashboard</title>
 </head>
 <body>
-    <h2>Aquila AI Trader Pro</h2>
+    <h2>🧠 Aquila AI Control Panel</h2>
 
-    <p>Status:
-        <b style="color: {{ 'green' if enabled else 'red' }}">
-            {{ 'RUNNING' if enabled else 'STOPPED' }}
-        </b>
-    </p>
-
-    <a href="/toggle">
-        <button>{{ 'Stop Bot' if enabled else 'Start Bot' }}</button>
-    </a>
-
-    <hr>
-
-    <form method="POST" action="/update_pairs">
-        <h3>Trading Pairs (comma separated)</h3>
-        <input type="text" name="pairs" value="{{ pairs }}" style="width:400px">
+    <form method="POST">
+        <label>Pairs (comma separated)</label><br>
+        <input name="pairs" value="{{ ','.join(settings.pairs) }}" style="width:300px">
         <br><br>
-        <button type="submit">Save Pairs</button>
+        <button type="submit">Save</button>
     </form>
-
 </body>
 </html>
