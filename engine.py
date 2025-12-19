@@ -1,22 +1,25 @@
 import time
 from strategies import ai_analysis
-from config import PAIRS, CHECK_INTERVAL_SECONDS
 from utils import send_signal
+import json
 
+SETTINGS_FILE = "settings.json"
+
+def load_settings():
+    with open(SETTINGS_FILE) as f:
+        return json.load(f)
 
 def run_engine():
-    print("🚀 Aquila AI Engine Started")
+    print("🚀 Engine Started")
 
     while True:
-        signals_count = 0
+        settings = load_settings()
+        tf = settings["timeframe"]
 
-        for pair in PAIRS:
-            signal = ai_analysis(pair, "1m")
-
+        for pair in settings["pairs"]:
+            signal = ai_analysis(pair, tf)
             if signal:
                 send_signal(signal)
-                signals_count += 1
                 time.sleep(2)
 
-        print(f"✅ Scan finished | Signals found: {signals_count}")
-        time.sleep(CHECK_INTERVAL_SECONDS)
+        time.sleep(60)
