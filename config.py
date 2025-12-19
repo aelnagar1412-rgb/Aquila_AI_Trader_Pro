@@ -21,6 +21,7 @@ PAIRS = [
 
 # =====================
 # Engine Settings
+CHECK_INTERVAL_SECONDS = 60
 # =====================
 
 SCAN_INTERVAL = 60  # seconds
