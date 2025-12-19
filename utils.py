@@ -1,15 +1,11 @@
-from telegram import Bot
-from config import BOT_TOKEN, CHAT_ID
+import json
 
-bot = Bot(token=BOT_TOKEN)
+FILE = "settings.json"
 
-def send_signal(signal):
-    text = f"""
-📊 إشارة جديدة
-الزوج: {signal['pair']}
-الفريم: {signal['timeframe']}
-الاتجاه: {signal['direction']}
-القوة: {signal['strength']}
-السبب: {signal['reason']}
-"""
-    bot.send_message(chat_id=CHAT_ID, text=text)
+def load_settings():
+    with open(FILE, "r") as f:
+        return json.load(f)
+
+def save_settings(data):
+    with open(FILE, "w") as f:
+        json.dump(data, f, indent=2))
