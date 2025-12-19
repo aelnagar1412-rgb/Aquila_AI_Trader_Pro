@@ -1,52 +1,22 @@
 import time
-import json
-import asyncio
-
-from analysis import ai_analysis
-from telegram_bot import send_signal
-
-SETTINGS_FILE = "settings.json"
-
-
-def load_settings():
-    with open(SETTINGS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+from strategies import ai_analysis
+from config import PAIRS, CHECK_INTERVAL_SECONDS
+from utils import send_signal
 
 
 def run_engine():
-    print("🚀 Aquila AI Trader Pro Engine Started")
+    print("🚀 Aquila AI Engine Started")
 
     while True:
-        try:
-            settings = load_settings()
+        signals_count = 0
 
-            if not settings.get("enabled", False):
-                time.sleep(5)
-                continue
+        for pair in PAIRS:
+            signal = ai_analysis(pair, "1m")
 
-            pairs = settings.get("pairs", [])
-            timeframes = settings.get("timeframes", [])
-            min_strength = settings.get("min_strength", 50)
-            scan_interval = settings.get("scan_interval", 60)
+            if signal:
+                send_signal(signal)
+                signals_count += 1
+                time.sleep(2)
 
-            signals_count = 0
-
-            for pair in pairs:
-                for tf in timeframes:
-                    signal = ai_analysis(pair, tf)
-
-                    if signal and signal.get("strength", 0) >= min_strength:
-                        asyncio.run(send_signal(signal))
-                        signals_count += 1
-                        time.sleep(2)
-
-            print(f"✅ Scan finished | Signals found: {signals_count}")
-            time.sleep(scan_interval)
-
-        except Exception as e:
-            print(f"❌ Engine error: {e}")
-            time.sleep(5)
-
-
-if __name__ == "__main__":
-    run_engine()
+        print(f"✅ Scan finished | Signals found: {signals_count}")
+        time.sleep(CHECK_INTERVAL_SECONDS)
