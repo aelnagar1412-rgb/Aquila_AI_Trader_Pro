@@ -2,31 +2,34 @@ import random
 
 def ai_analysis(pair, timeframe):
     """
-    RSI + EMA Trend Strategy (Mock logic for now)
-    Replace price feed later
+    Strong 1m Strategy (Mocked)
+    EMA Trend + RSI Filter
     """
 
-    # محاكاة (عشان البوت يشتغل)
-    signal_chance = random.randint(1, 100)
+    rsi = random.randint(30, 70)
+    ema_fast = random.randint(1, 100)
+    ema_slow = random.randint(1, 100)
 
-    if signal_chance > 92:
+    strength = random.randint(50, 90)
+
+    # BUY conditions
+    if ema_fast > ema_slow and rsi > 55 and strength >= 60:
         return {
             "pair": pair,
             "timeframe": timeframe,
             "direction": "BUY",
-            "strength": random.randint(60, 85),
-            "confidence": random.randint(80, 95),
-            "reason": "RSI + EMA Trend"
+            "strength": strength,
+            "reason": "EMA Uptrend + RSI > 55"
         }
 
-    if signal_chance < 8:
+    # SELL conditions
+    if ema_fast < ema_slow and rsi < 45 and strength >= 60:
         return {
             "pair": pair,
             "timeframe": timeframe,
             "direction": "SELL",
-            "strength": random.randint(60, 85),
-            "confidence": random.randint(80, 95),
-            "reason": "RSI + EMA Trend"
+            "strength": strength,
+            "reason": "EMA Downtrend + RSI < 45"
         }
 
     return None
