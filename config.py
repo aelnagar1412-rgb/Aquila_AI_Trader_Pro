@@ -1,16 +1,33 @@
-# -*- coding: utf-8 -*-
+# =====================
+# Bot Basic Settings
+# =====================
 
-TELEGRAM_TOKEN = "8570409684:AAEQBhKv0zMZaEXWcoCUGiJsKRspE5JuleM"
-TELEGRAM_CHAT_ID = "818760257"
+BOT_NAME = "Aquila AI"
+BOT_TOKEN = "8570409684:AAEQBhKv0zMZaEXWcoCUGiJsKRspE5JuleM"
+
+# =====================
+# Trading Settings
+# =====================
+
+DEFAULT_TIMEFRAME = "1m"
 
 PAIRS = [
-    "EURUSD", "GBPUSD", "USDJPY",
-    "AUDUSD", "USDCHF", "USDCAD",
+    "EURUSD",
+    "EURJPY",
+    "EURGBP",
+    "AUDCAD",
+    "USDJPY"
 ]
 
-DEFAULT_TIMEFRAMES = ["1m", "5m", "15m"]
+# =====================
+# Engine Settings
+# =====================
 
-PAIR_TIMEFRAMES = {
-    "XAUUSD": ["5m", "15m"],
-    "USDJPY": ["1m", "5m"]
-}
+SCAN_INTERVAL = 60  # seconds
+MAX_SIGNALS_PER_SCAN = 3
+
+# =====================
+# Dashboard
+# =====================
+
+DASHBOARD_PORT = 5000
