@@ -1,7 +1,8 @@
 {
   "enabled": true,
-  "pairs": ["EURUSD", "EURJPY", "EURGBP", "AUDCAD", "USDJPY"],
+  "pairs": ["EURUSD", "EURJPY", "EURGBP"],
   "timeframe": "1m",
   "strategy": "RSI_EMA",
-  "last_signal": null
+  "bot_token": "8570409684:AAEQBhKv0zMZaEXWcoCUGiJsKRspE5JuleM"
+  "chat_id": "818760257"
 }
