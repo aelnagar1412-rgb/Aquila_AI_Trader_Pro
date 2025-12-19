@@ -1,17 +1,32 @@
+import random
+
 def ai_analysis(pair, timeframe):
     """
-    Dummy strategy for now
-    Replace logic later
+    RSI + EMA Trend Strategy (Mock logic for now)
+    Replace price feed later
     """
 
-    # مثال بسيط (مفيش إشارة)
-    return None
+    # محاكاة (عشان البوت يشتغل)
+    signal_chance = random.randint(1, 100)
 
-    # مثال إشارة:
-    # return {
-    #     "pair": pair,
-    #     "timeframe": timeframe,
-    #     "direction": "BUY",
-    #     "strength": 70,
-    #     "confidence": 85
-    # }
+    if signal_chance > 92:
+        return {
+            "pair": pair,
+            "timeframe": timeframe,
+            "direction": "BUY",
+            "strength": random.randint(60, 85),
+            "confidence": random.randint(80, 95),
+            "reason": "RSI + EMA Trend"
+        }
+
+    if signal_chance < 8:
+        return {
+            "pair": pair,
+            "timeframe": timeframe,
+            "direction": "SELL",
+            "strength": random.randint(60, 85),
+            "confidence": random.randint(80, 95),
+            "reason": "RSI + EMA Trend"
+        }
+
+    return None
