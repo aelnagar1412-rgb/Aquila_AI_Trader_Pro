@@ -1,5 +1,13 @@
 {
-  "bot_running": true,
-  "timeframe": null,
-  "pairs": []
+  "enabled": true,
+  "timeframes": ["1m"],
+  "pairs": [
+    "EURUSD",
+    "EURJPY",
+    "EURGBP",
+    "AUDCAD",
+    "USDJPY"
+  ],
+  "min_strength": 50,
+  "scan_interval": 60
 }
