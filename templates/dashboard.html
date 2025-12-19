@@ -1,20 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Aquila AI Control</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aquila AI PRO</title>
+<style>
+body{background:#0f172a;color:#fff;font-family:tahoma}
+.card{background:#020617;padding:20px;border-radius:12px;width:420px;margin:auto}
+button{padding:10px;margin:5px;border-radius:6px}
+</style>
 </head>
-<body style="font-family: Arial; background:#0f172a; color:white; text-align:center">
+<body>
 
-<h1>🦅 Aquila AI Trader Pro</h1>
+<div class="card">
+<h2>⚡ Aquila AI Trader PRO</h2>
 
-<h2>Status: {{ status }}</h2>
+<p>Status:
+<b style="color:{{ 'lime' if running else 'red' }}">
+{{ 'RUNNING' if running else 'STOPPED' }}
+</b>
+</p>
 
-<div style="margin-top:20px">
-    <a href="/start"><button style="padding:10px 20px">▶️ Start</button></a>
-    <a href="/stop"><button style="padding:10px 20px">⛔ Stop</button></a>
-    <a href="/restart"><button style="padding:10px 20px">🔄 Restart</button></a>
+<a href="/start"><button>▶ Start</button></a>
+<a href="/stop"><button>⛔ Stop</button></a>
+<a href="/restart"><button>♻ Restart</button></a>
+
+<hr>
+
+<form method="post" action="/set_tf">
+<select name="tf">
+<option value="">AUTO</option>
+<option>1m</option>
+<option>5m</option>
+<option>15m</option>
+</select>
+<button>Save TF</button>
+</form>
+
+<form method="post" action="/set_pairs">
+<label><input type="checkbox" name="pairs" value="EURUSD">EURUSD</label><br>
+<label><input type="checkbox" name="pairs" value="GBPUSD">GBPUSD</label><br>
+<label><input type="checkbox" name="pairs" value="USDJPY">USDJPY</label><br>
+<label><input type="checkbox" name="pairs" value="XAUUSD">XAUUSD</label><br>
+<button>Apply Pairs</button>
+</form>
+
 </div>
-
 </body>
 </html>
