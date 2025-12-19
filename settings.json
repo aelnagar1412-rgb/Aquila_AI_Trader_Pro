@@ -1,4 +1,7 @@
 {
+  "enabled": true,
+  "pairs": ["EURUSD", "EURJPY", "EURGBP", "AUDCAD", "USDJPY"],
   "timeframe": "1m",
-  "pairs": ["EURUSD", "EURJPY", "EURGBP", "AUDCAD", "USDJPY"]
+  "strategy": "RSI_EMA",
+  "last_signal": null
 }
